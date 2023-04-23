@@ -18,38 +18,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
 var modal = function modal(triggerSelector, modalSelector, closeSelector) {
-  var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-  var triggerDel = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  var triggerDel = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var openModalTimerAdd = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  var closeClickOverlay = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
   var trigger = document.querySelectorAll(triggerSelector),
     modal = document.querySelector(modalSelector),
-    close = document.querySelectorAll(closeSelector);
-  function closeModal() {
-    modal.style.display = "none";
-    document.body.style.overflow = "";
-    if (triggerDel) {
-      trigger.forEach(function (item) {
-        item.style.display = "none";
-      });
-    }
+    close = document.querySelectorAll(closeSelector),
+    windows = document.querySelectorAll("[data-modal]"),
+    scroll = calcScroll();
+  function windowsDisplayNone() {
+    windows.forEach(function (item) {
+      item.style.display = "none";
+    });
   }
   function openModal() {
+    windowsDisplayNone();
     modal.style.display = "block";
     document.body.style.overflow = "hidden";
+    modal.classList.add("animate__animated", "animate__fadeIn");
+    document.body.style.marginRight = "".concat(scroll, "px");
+  }
+  function closeModal() {
+    windowsDisplayNone();
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+    document.body.style.marginRight = "0px";
+    modal.classList.remove("animate__animated", "animate__fadeIn");
   }
   trigger.forEach(function (item) {
     item.addEventListener("click", function (e) {
       if (e.target) {
         e.preventDefault();
       }
+      if (triggerDel) {
+        item.remove();
+      }
       openModal();
     });
   });
   close.forEach(function (item) {
-    item.addEventListener("click", function (e) {
+    item.addEventListener("click", function () {
       closeModal();
     });
   });
@@ -67,6 +82,38 @@ var modal = function modal(triggerSelector, modalSelector, closeSelector) {
       closeModal();
     }
   });
+
+  //убираем прыгание модального окна
+  function calcScroll() {
+    var div = document.createElement("div");
+    div.style.width = "50px";
+    div.style.height = "50px";
+    div.style.overflow = "scroll";
+    div.style.visibility = "hidden";
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
+  }
+
+  // Открытие модалки через некоторое время (time = 60sec) если открыто другое модальное окно этого не будет
+  function showModalByTime() {
+    var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 60000;
+    setTimeout(function () {
+      var display;
+      windows.forEach(function (item) {
+        if (getComputedStyle(item).display !== "none") {
+          display = "block";
+        }
+      });
+      if (!display) {
+        openModal();
+      }
+    }, time);
+  }
+  if (openModalTimerAdd) {
+    showModalByTime();
+  }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
 
@@ -316,6 +363,19 @@ module.exports = function (METHOD_NAME, argument) {
     method.call(null, argument || function () { return 1; }, 1);
   });
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/array-slice.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/array-slice.js ***!
+  \*******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+
+module.exports = uncurryThis([].slice);
 
 
 /***/ }),
@@ -668,6 +728,18 @@ module.exports = DOMTokenListPrototype === Object.prototype ? undefined : DOMTok
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/engine-is-bun.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/internals/engine-is-bun.js ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+/* global Bun -- Deno case */
+module.exports = typeof Bun == 'function' && Bun && typeof Bun.version == 'string';
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/engine-user-agent.js":
 /*!*************************************************************!*\
   !*** ./node_modules/core-js/internals/engine-user-agent.js ***!
@@ -813,6 +885,26 @@ module.exports = function (exec) {
     return true;
   }
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/function-apply.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/internals/function-apply.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var NATIVE_BIND = __webpack_require__(/*! ../internals/function-bind-native */ "./node_modules/core-js/internals/function-bind-native.js");
+
+var FunctionPrototype = Function.prototype;
+var apply = FunctionPrototype.apply;
+var call = FunctionPrototype.call;
+
+// eslint-disable-next-line es/no-reflect -- safe
+module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
+  return call.apply(apply, arguments);
+});
 
 
 /***/ }),
@@ -1765,6 +1857,48 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/schedulers-fix.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/internals/schedulers-fix.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var apply = __webpack_require__(/*! ../internals/function-apply */ "./node_modules/core-js/internals/function-apply.js");
+var isCallable = __webpack_require__(/*! ../internals/is-callable */ "./node_modules/core-js/internals/is-callable.js");
+var ENGINE_IS_BUN = __webpack_require__(/*! ../internals/engine-is-bun */ "./node_modules/core-js/internals/engine-is-bun.js");
+var USER_AGENT = __webpack_require__(/*! ../internals/engine-user-agent */ "./node_modules/core-js/internals/engine-user-agent.js");
+var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "./node_modules/core-js/internals/array-slice.js");
+var validateArgumentsLength = __webpack_require__(/*! ../internals/validate-arguments-length */ "./node_modules/core-js/internals/validate-arguments-length.js");
+
+var Function = global.Function;
+// dirty IE9- and Bun 0.3.0- checks
+var WRAP = /MSIE .\./.test(USER_AGENT) || ENGINE_IS_BUN && (function () {
+  var version = global.Bun.version.split('.');
+  return version.length < 3 || version[0] == 0 && (version[1] < 3 || version[1] == 3 && version[2] == 0);
+})();
+
+// IE9- / Bun 0.3.0- setTimeout / setInterval / setImmediate additional parameters fix
+// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers
+// https://github.com/oven-sh/bun/issues/1633
+module.exports = function (scheduler, hasTimeArg) {
+  var firstParamIndex = hasTimeArg ? 2 : 1;
+  return WRAP ? function (handler, timeout /* , ...arguments */) {
+    var boundArgs = validateArgumentsLength(arguments.length, 1) > firstParamIndex;
+    var fn = isCallable(handler) ? handler : Function(handler);
+    var params = boundArgs ? arraySlice(arguments, firstParamIndex) : [];
+    var callback = boundArgs ? function () {
+      apply(fn, this, params);
+    } : fn;
+    return hasTimeArg ? scheduler(callback, timeout) : scheduler(callback);
+  } : scheduler;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/shared-key.js":
 /*!******************************************************!*\
   !*** ./node_modules/core-js/internals/shared-key.js ***!
@@ -2089,6 +2223,22 @@ module.exports = DESCRIPTORS && fails(function () {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/validate-arguments-length.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/core-js/internals/validate-arguments-length.js ***!
+  \*********************************************************************/
+/***/ ((module) => {
+
+var $TypeError = TypeError;
+
+module.exports = function (passed, required) {
+  if (passed < required) throw $TypeError('Not enough arguments');
+  return passed;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/weak-map-basic-detection.js":
 /*!********************************************************************!*\
   !*** ./node_modules/core-js/internals/weak-map-basic-detection.js ***!
@@ -2203,6 +2353,61 @@ for (var COLLECTION_NAME in DOMIterables) {
 handlePrototype(DOMTokenListPrototype);
 
 
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.set-interval.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/modules/web.set-interval.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var schedulersFix = __webpack_require__(/*! ../internals/schedulers-fix */ "./node_modules/core-js/internals/schedulers-fix.js");
+
+var setInterval = schedulersFix(global.setInterval, true);
+
+// Bun / IE9- setInterval additional parameters fix
+// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
+$({ global: true, bind: true, forced: global.setInterval !== setInterval }, {
+  setInterval: setInterval
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.set-timeout.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/modules/web.set-timeout.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var schedulersFix = __webpack_require__(/*! ../internals/schedulers-fix */ "./node_modules/core-js/internals/schedulers-fix.js");
+
+var setTimeout = schedulersFix(global.setTimeout, true);
+
+// Bun / IE9- setTimeout additional parameters fix
+// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
+$({ global: true, bind: true, forced: global.setTimeout !== setTimeout }, {
+  setTimeout: setTimeout
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.timers.js":
+/*!****************************************************!*\
+  !*** ./node_modules/core-js/modules/web.timers.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// TODO: Remove this module from `core-js@4` since it's split to modules listed below
+__webpack_require__(/*! ../modules/web.set-interval */ "./node_modules/core-js/modules/web.set-interval.js");
+__webpack_require__(/*! ../modules/web.set-timeout */ "./node_modules/core-js/modules/web.set-timeout.js");
+
+
 /***/ })
 
 /******/ 	});
@@ -2301,8 +2506,8 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener("DOMContentLoaded", function () {
   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".button-design", ".popup-design", ".popup-close");
-  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".button-consultation", ".popup-consultation", ".popup-close");
   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".fixed-gift", ".popup-gift", ".popup-close", true, true);
+  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".button-consultation", ".popup-consultation", ".popup-close", true, false, true);
   (0,_modules_moreStyleLoad__WEBPACK_IMPORTED_MODULE_1__["default"])(".button-styles", ".styles-2", true);
 });
 })();

@@ -16,7 +16,7 @@ function moreStyleLoad(triggerSelector, elemSelector, triggerDel = false) {
 				"col-xs-10",
 				"col-xs-offset-1",
 				"animate__animated",
-                "animate__backInDown"
+				"animate__backInDown"
 			);
 
 			if (triggerDel) {
