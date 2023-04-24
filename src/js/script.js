@@ -1,12 +1,14 @@
-"use strict";
+'use strict'
 
-import modal from "./modules/modal";
-import moreStyleLoad from "./modules/moreStyleLoad";
+import moreStyleLoad from './modules/moreStyleLoad'
+import modals from './modules/modal'
+import sliders from './modules/sliders'
 
-window.addEventListener("DOMContentLoaded", () => {
-    modal(".button-design", ".popup-design", ".popup-close");
-	modal(".fixed-gift", ".popup-gift", ".popup-close", true, true);
-	modal(".button-consultation", ".popup-consultation", ".popup-close", true, false, true);
+window.addEventListener('DOMContentLoaded', () => {
+	modals()
 
-	moreStyleLoad(".button-styles", ".styles-2", true);
-});
+	moreStyleLoad('.button-styles', '.styles-2', true)
+
+	sliders('.main-slider-item', 'vertical')
+	sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn')
+})

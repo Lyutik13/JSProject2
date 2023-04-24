@@ -1,112 +1,134 @@
-const modal = (
-	triggerSelector,
-	modalSelector,
-	closeSelector,
-	triggerDel = false,
-	openModalTimerAdd = false,
-	closeClickOverlay = true,
-) => {
-	const trigger = document.querySelectorAll(triggerSelector),
-		modal = document.querySelector(modalSelector),
-		close = document.querySelectorAll(closeSelector),
-		windows = document.querySelectorAll("[data-modal]"),
-		scroll = calcScroll();
+const modals = () => {
+	let btnPressed = false
 
-	function windowsDisplayNone() {
-		windows.forEach((item) => {
-			item.style.display = "none";
-		});
-	}
+	function bindModal(
+		triggerSelector,
+		modalSelector,
+		closeSelector,
+		destroy = false
+	) {
+		const trigger = document.querySelectorAll(triggerSelector),
+			modal = document.querySelector(modalSelector),
+			close = document.querySelector(closeSelector),
+			windows = document.querySelectorAll('[data-modal]'),
+			scroll = calcScroll()
 
-	function openModal() {
-		windowsDisplayNone();
-
-		modal.style.display = "block";
-		document.body.style.overflow = "hidden";
-		modal.classList.add("animate__animated", "animate__fadeIn");
-		document.body.style.marginRight = `${scroll}px`;
-	}
-
-	function closeModal() {
-		windowsDisplayNone();
-
-		modal.style.display = "none";
-		document.body.style.overflow = "";
-		document.body.style.marginRight = `0px`;
-		modal.classList.remove("animate__animated", "animate__fadeIn");
-	}
-
-	trigger.forEach((item) => {
-		item.addEventListener("click", (e) => {
-			if (e.target) {
-				e.preventDefault();
-			}
-
-			if (triggerDel) {
-				item.remove();
-			}
-
-			openModal();
-		});
-	});
-
-	close.forEach((item) => {
-		item.addEventListener("click", () => {
-			closeModal();
-		});
-	});
-
-	// закрытие modal по клику в области
-	modal.addEventListener("click", (e) => {
-		if (e.target === modal && closeClickOverlay) {
-			closeModal();
+		function windowsDisplayNone() {
+			windows.forEach((item) => {
+				item.style.display = 'none'
+			})
 		}
-	});
 
-	// Закрытие модального окна при клике на клавишу ESC.
-	document.addEventListener("keydown", (e) => {
-		if (e.code === "Escape" && getComputedStyle(modal).display == "block") {
-			closeModal();
+		function openModal() {
+			modal.style.display = 'block'
+			document.body.style.overflow = 'hidden'
+			modal.classList.add('animate__animated', 'animate__fadeIn')
+			document.body.style.marginRight = `${scroll}px`
 		}
-	});
+
+		function closeModal() {
+			modal.style.display = 'none'
+			document.body.style.overflow = ''
+			document.body.style.marginRight = `0px`
+			modal.classList.remove('animate__animated', 'animate__fadeIn')
+		}
+
+		trigger.forEach((item) => {
+			item.addEventListener('click', (e) => {
+				if (e.target) {
+					e.preventDefault()
+				}
+
+				btnPressed = true
+
+				if (destroy) {
+					item.remove()
+				}
+
+				windowsDisplayNone()
+				openModal()
+			})
+		})
+
+		close.addEventListener('click', () => {
+			windowsDisplayNone()
+			closeModal()
+		})
+
+		// закрытие modal по клику в области
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) {
+				windowsDisplayNone()
+				closeModal()
+			}
+		})
+
+		// Закрытие модального окна при клике на клавишу ESC.
+		document.addEventListener('keydown', (e) => {
+			if (e.code === 'Escape' && getComputedStyle(modal).display == 'block') {
+				windowsDisplayNone()
+				closeModal()
+			}
+		})
+	}
+	// /bindModal()
+
+	// Открытие модалки через некоторое время (time) если открыто другое модальное окно этого не будет
+	function showModalByTime(selector, time) {
+		setTimeout(function () {
+			let display
+
+			document.querySelectorAll('[data-modal]').forEach((item) => {
+				if (getComputedStyle(item).display !== 'none') {
+					display = 'block'
+				}
+			})
+
+			if (!display) {
+				document.querySelector(selector).click()
+			}
+		}, time)
+	}
 
 	//убираем прыгание модального окна
 	function calcScroll() {
-		let div = document.createElement("div");
+		let div = document.createElement('div')
 
-		div.style.width = "50px";
-		div.style.height = "50px";
-		div.style.overflow = "scroll";
-		div.style.visibility = "hidden";
+		div.style.width = '50px'
+		div.style.height = '50px'
+		div.style.overflowY = 'scroll'
+		div.style.visibility = 'hidden'
 
-		document.body.appendChild(div);
-		let scrollWidth = div.offsetWidth - div.clientWidth;
-		div.remove();
+		document.body.appendChild(div)
+		let scrollWidth = div.offsetWidth - div.clientWidth
+		div.remove()
 
-		return scrollWidth;
+		return scrollWidth
 	}
 
-	// Открытие модалки через некоторое время (time = 60sec) если открыто другое модальное окно этого не будет
-	function showModalByTime(time = 60000) {
-		setTimeout(function () {
-			let display;
-
-			windows.forEach((item) => {
-				if (getComputedStyle(item).display !== "none") {
-					display = "block";
-				}
-			});
-
-			if (!display) {
-				openModal();
+	// Открытие модального окна после прокрутки страницы до конца и не нажатии ни одной кнопки
+	// высота клиентского окна + высота скрола >= всей высоте страницы
+	function openByScroll(selector) {
+		window.addEventListener('scroll', () => {
+			if (
+				!btnPressed &&
+				document.documentElement.clientHeight + window.scrollY >=
+					document.documentElement.scrollHeight
+			) {
+				document.querySelector(selector).click()
 			}
-		}, time);
+		})
 	}
 
-	if (openModalTimerAdd) {
-		showModalByTime();
-	}
-    
-};
+	bindModal('.button-design', '.popup-design', '.popup-design .popup-close')
+	bindModal(
+		'.button-consultation',
+		'.popup-consultation',
+		'.popup-consultation .popup-close'
+	)
+	bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true)
+	openByScroll('.fixed-gift')
+	// showModalByTime(".button-consultation", 60000);
+}
 
-export default modal;
+export default modals
