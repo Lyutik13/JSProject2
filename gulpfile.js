@@ -9,8 +9,8 @@ const htmlmin = require('gulp-htmlmin')
 const cleanCSS = require('gulp-clean-css')
 const webpack = require('webpack-stream')
 
-const dist = './dist/'
-// const dist = "V:/for_programing/ospanel/domains/test";
+// const dist = './dist/'
+const dist = "V:/for_programing/ospanel/domains/test";
 
 function styles() {
 	return src('./src/sass/style.scss')
@@ -42,10 +42,10 @@ function html() {
 }
 
 function bilds() {
-	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*'], {
+	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php'], {
 		base: 'src',
 	}).pipe(dest(dist))
-	// .pipe(browserSync.stream());
+	.pipe(browserSync.stream());
 }
 
 function watching() {
@@ -60,7 +60,7 @@ function watching() {
 	watch(['./src/*.html'], html).on('change', browserSync.reload)
 	watch(['./src/sass/**/*.scss'], styles)
 	watch(['./src/js/**/*.js'], scripts)
-	watch(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*'], bilds)
+	watch(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php'], bilds)
 }
 
 exports.bilds = bilds

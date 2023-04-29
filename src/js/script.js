@@ -3,6 +3,7 @@
 import moreStyleLoad from './modules/moreStyleLoad'
 import modals from './modules/modal'
 import sliders from './modules/sliders'
+import forms from './modules/forms'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -11,4 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	sliders('.main-slider-item', 'vertical')
 	sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn')
+
+  forms()
 })
