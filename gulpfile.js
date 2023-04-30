@@ -9,8 +9,8 @@ const htmlmin = require('gulp-htmlmin')
 const cleanCSS = require('gulp-clean-css')
 const webpack = require('webpack-stream')
 
-// const dist = './dist/'
-const dist = "V:/for_programing/ospanel/domains/test";
+const dist = './dist/'
+// const dist = "V:/for_programing/ospanel/domains/test";
 
 function styles() {
 	return src('./src/sass/style.scss')
