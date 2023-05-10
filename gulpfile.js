@@ -42,7 +42,7 @@ function html() {
 }
 
 function bilds() {
-	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php'], {
+	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php', './src/db.json'], {
 		base: 'src',
 	}).pipe(dest(dist))
 	.pipe(browserSync.stream());
@@ -60,7 +60,7 @@ function watching() {
 	watch(['./src/*.html'], html).on('change', browserSync.reload)
 	watch(['./src/sass/**/*.scss'], styles)
 	watch(['./src/js/**/*.js'], scripts)
-	watch(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php'], bilds)
+	watch(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php', './src/db.json'], bilds)
 }
 
 exports.bilds = bilds

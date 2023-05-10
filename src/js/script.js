@@ -10,7 +10,8 @@ import checkTextInputs from './modules/checkTextInputs'
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
 
-	moreStyleLoad('.button-styles', '.styles-2', true)
+	// moreStyleLoad('.button-styles', '.styles-2', true)
+	moreStyleLoad('.button-styles', '#styles .row', true)
 
 	sliders('.main-slider-item', 'vertical')
 	sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn')
@@ -20,3 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
   mask('[name="phone"]')
   checkTextInputs('[name="name"]')
 })
+
+
+// json-server src/db.json
+// gulp

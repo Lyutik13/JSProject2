@@ -1,3 +1,5 @@
+import { postData } from "../services/requests"
+
 const forms = () => {
 	const form = document.querySelectorAll('form'),
 		inputs = document.querySelectorAll('input'),
@@ -17,7 +19,7 @@ const forms = () => {
 		question: 'question.php',
 	}
 
-	//ф-я отправки одного запроса
+/* 	//ф-я отправки одного запроса (перемещена в requets.js)
 	const postData = async (url, data) => {
 		let res = await fetch(url, {
 			method: 'POST',
@@ -25,7 +27,7 @@ const forms = () => {
 		})
 
 		return await res.text()
-	}
+	} */
 
 	// очистка формы и надписи
 	const clearInouts = () => {
