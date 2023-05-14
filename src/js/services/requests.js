@@ -8,7 +8,7 @@ const postData = async (url, data) => {
 	return await res.text()
 }
 
-// Get 
+// Get moreStyleLoad
 const getResourse = async (url) => {
 	let res = await fetch(url)
 
@@ -20,3 +20,5 @@ const getResourse = async (url) => {
 }
 
 export {postData, getResourse}
+
+// ...
