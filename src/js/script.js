@@ -7,6 +7,7 @@ import forms from './modules/forms'
 import mask from './modules/mask'
 import checkTextInputs from './modules/checkTextInputs'
 import calc from './modules/calc'
+import filter from './modules/filter'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -23,6 +24,8 @@ window.addEventListener('DOMContentLoaded', () => {
   checkTextInputs('[name="name"]')
 
   calc('#size', '#material', '#options', '.promocode', '.calc-price')
+
+  filter()
 })
 
 
