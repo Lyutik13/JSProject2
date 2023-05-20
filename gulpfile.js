@@ -45,7 +45,7 @@ function bilds() {
 	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php', './src/db.json'], {
 		base: 'src',
 	}).pipe(dest(dist))
-	.pipe(browserSync.stream());
+	// .pipe(browserSync.stream());
 }
 
 function watching() {

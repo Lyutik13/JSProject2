@@ -8,6 +8,7 @@ import mask from './modules/mask'
 import checkTextInputs from './modules/checkTextInputs'
 import calc from './modules/calc'
 import filter from './modules/filter'
+import picturesSizes from './modules/picturesSizes'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -26,6 +27,8 @@ window.addEventListener('DOMContentLoaded', () => {
   calc('#size', '#material', '#options', '.promocode', '.calc-price')
 
   filter()
+
+  picturesSizes('.sizes-block')
 })
 
 

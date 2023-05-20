@@ -594,6 +594,104 @@ function moreStyleLoad(triggerSelector, wrapper) {
 
 /***/ }),
 
+/***/ "./src/js/modules/picturesSizes.js":
+/*!*****************************************!*\
+  !*** ./src/js/modules/picturesSizes.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// myCode
+/* function picturesSizes() {
+	function picturesSizesOption(number, srcEnd, src) {
+		const pictures = document.querySelectorAll('.sizes-block > img')[number],
+			sizePictures = document.querySelectorAll('.size')[number],
+			startingPictures = document.querySelectorAll('.starting-price')[number],
+			pricePictures = document.querySelectorAll('.final-price')[number],
+      btn = document.querySelector('.sizes-hit')
+
+		pictures.addEventListener('mouseover', function () {
+			this.src = srcEnd
+      this.classList.add('animate__animated', 'animate__swing')
+
+			sizePictures.style.display = 'none'
+			startingPictures.style.display = 'none'
+			pricePictures.style.display = 'none'
+		})
+
+		pictures.addEventListener('mouseout', function () {
+			this.src = src
+      this.classList.remove('animate__animated', 'animate__swing')
+
+			sizePictures.style.display = 'block'
+			startingPictures.style.display = 'block'
+			pricePictures.style.display = 'block'
+		})
+
+    btn.addEventListener('mouseover', function () {
+			this.style.backgroundColor = '#ed8c00'
+    })
+    btn.addEventListener('mouseout', function () {
+			this.style.backgroundColor = '#f99300'
+    })
+	}
+  picturesSizesOption(0, 'img/sizes-1-1.png', 'img/sizes-1.png')
+  picturesSizesOption(1, 'img/sizes-2-1.png', 'img/sizes-2.png')
+  picturesSizesOption(2, 'img/sizes-3-1.png', 'img/sizes-3.png')
+  picturesSizesOption(3, 'img/sizes-4-1.png', 'img/sizes-4.png')
+} */
+
+function picturesSizes(imgSelector) {
+  var blocks = document.querySelectorAll(imgSelector);
+  function showImg(block) {
+    var img = block.querySelector('img');
+    // something.png => something-1.png
+    img.src = img.src.slice(0, -4) + '-1.png';
+    block.querySelectorAll('p:not(.sizes-hit)').forEach(function (p) {
+      p.style.display = 'none';
+    });
+    block.classList.add('animate__animated', 'animate__swing');
+    block.querySelector('.sizes-hit').style.backgroundImage = 'linear-gradient(66deg,#a12ab1 0,#c818bc 100%)';
+  }
+  function hideImg(block) {
+    var img = block.querySelector('img');
+    // something.png => something-1.png
+    img.src = img.src.slice(0, -6) + '.png';
+    block.querySelectorAll('p:not(.sizes-hit)').forEach(function (p) {
+      p.style.display = 'block';
+    });
+    block.classList.remove('animate__animated', 'animate__swing');
+    block.querySelector('.sizes-hit').style.backgroundImage = 'linear-gradient(66deg,#ed8c00 0,#f99300 100%)';
+  }
+  blocks.forEach(function (block) {
+    block.addEventListener('mouseover', function () {
+      showImg(block);
+    });
+    block.addEventListener('mouseout', function () {
+      hideImg(block);
+    });
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (picturesSizes);
+
+/***/ }),
+
 /***/ "./src/js/modules/sliders.js":
 /*!***********************************!*\
   !*** ./src/js/modules/sliders.js ***!
@@ -7206,6 +7304,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+/* harmony import */ var _modules_picturesSizes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/picturesSizes */ "./src/js/modules/picturesSizes.js");
+
 
 
 
@@ -7228,6 +7328,7 @@ window.addEventListener('DOMContentLoaded', function () {
   (0,_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_5__["default"])('[name="name"]');
   (0,_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price');
   (0,_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
+  (0,_modules_picturesSizes__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
 });
 
 // json-server src/db.json
