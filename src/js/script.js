@@ -9,6 +9,7 @@ import checkTextInputs from './modules/checkTextInputs'
 import calc from './modules/calc'
 import filter from './modules/filter'
 import picturesSizes from './modules/picturesSizes'
+import accordion from './modules/accordion'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -29,6 +30,8 @@ window.addEventListener('DOMContentLoaded', () => {
   filter()
 
   picturesSizes('.sizes-block')
+
+  accordion('.accordion-heading', '.accordion-block')
 })
 
 
