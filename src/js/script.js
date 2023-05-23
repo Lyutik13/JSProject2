@@ -10,6 +10,7 @@ import calc from './modules/calc'
 import filter from './modules/filter'
 import picturesSizes from './modules/picturesSizes'
 import accordion from './modules/accordion'
+import burger from './modules/burger'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -32,6 +33,8 @@ window.addEventListener('DOMContentLoaded', () => {
   picturesSizes('.sizes-block')
 
   accordion('.accordion-heading', '.accordion-block')
+
+  burger('.burger-menu', '.burger')
 })
 
 

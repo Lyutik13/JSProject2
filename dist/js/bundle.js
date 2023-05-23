@@ -35,10 +35,32 @@ var accordion = function accordion(trigerSelector, itemsSelector) {
     });
   });
   blocks.forEach(function (block) {
-    block.classList.add('animate__animated', 'animate__fadeInDaun');
+    block.classList.add('animate__animated', 'animate__slideInDown');
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (accordion);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var burger = function burger(menuSelector, burgerSelector) {
+  var menuElem = document.querySelector(menuSelector),
+    burgerElem = document.querySelector(burgerSelector);
+  burgerElem.addEventListener('click', function () {
+    menuElem.classList.toggle('active');
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (burger);
 
 /***/ }),
 
@@ -7347,6 +7369,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
 /* harmony import */ var _modules_picturesSizes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/picturesSizes */ "./src/js/modules/picturesSizes.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+
 
 
 
@@ -7373,6 +7397,7 @@ window.addEventListener('DOMContentLoaded', function () {
   (0,_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
   (0,_modules_picturesSizes__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.accordion-heading', '.accordion-block');
+  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger-menu', '.burger');
 });
 
 // json-server src/db.json

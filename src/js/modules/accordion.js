@@ -14,7 +14,7 @@ const accordion = (trigerSelector, itemsSelector) => {
   })
 
   blocks.forEach(block => {
-    block.classList.add('animate__animated', 'animate__fadeInDaun')
+    block.classList.add('animate__animated', 'animate__slideInDown')
   })
 }
 
