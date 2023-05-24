@@ -1,15 +1,15 @@
 // myCode
-/* function picturesSizes() {
+function picturesSizes() {
 	function picturesSizesOption(number, srcEnd, src) {
 		const pictures = document.querySelectorAll('.sizes-block > img')[number],
 			sizePictures = document.querySelectorAll('.size')[number],
 			startingPictures = document.querySelectorAll('.starting-price')[number],
 			pricePictures = document.querySelectorAll('.final-price')[number],
-      btn = document.querySelector('.sizes-hit')
+			btn = document.querySelector('.sizes-hit')
 
 		pictures.addEventListener('mouseover', function () {
 			this.src = srcEnd
-      this.classList.add('animate__animated', 'animate__swing')
+			this.classList.add('animate__animated', 'animate__swing')
 
 			sizePictures.style.display = 'none'
 			startingPictures.style.display = 'none'
@@ -18,27 +18,27 @@
 
 		pictures.addEventListener('mouseout', function () {
 			this.src = src
-      this.classList.remove('animate__animated', 'animate__swing')
+			this.classList.remove('animate__animated', 'animate__swing')
 
 			sizePictures.style.display = 'block'
 			startingPictures.style.display = 'block'
 			pricePictures.style.display = 'block'
 		})
 
-    btn.addEventListener('mouseover', function () {
+		btn.addEventListener('mouseover', function () {
 			this.style.backgroundColor = '#ed8c00'
-    })
-    btn.addEventListener('mouseout', function () {
+		})
+		btn.addEventListener('mouseout', function () {
 			this.style.backgroundColor = '#f99300'
-    })
+		})
 	}
-  picturesSizesOption(0, 'img/sizes-1-1.png', 'img/sizes-1.png')
-  picturesSizesOption(1, 'img/sizes-2-1.png', 'img/sizes-2.png')
-  picturesSizesOption(2, 'img/sizes-3-1.png', 'img/sizes-3.png')
-  picturesSizesOption(3, 'img/sizes-4-1.png', 'img/sizes-4.png')
-} */
+	picturesSizesOption(0, 'img/sizes-1-1.png', 'img/sizes-1.png')
+	picturesSizesOption(1, 'img/sizes-2-1.png', 'img/sizes-2.png')
+	picturesSizesOption(2, 'img/sizes-3-1.png', 'img/sizes-3.png')
+	picturesSizesOption(3, 'img/sizes-4-1.png', 'img/sizes-4.png')
+}
 
-function picturesSizes(imgSelector) {
+/* function picturesSizes(imgSelector) {
 	const blocks = document.querySelectorAll(imgSelector)
 
 	function showImg(block) {
@@ -77,6 +77,6 @@ function picturesSizes(imgSelector) {
 			hideImg(block)
 		})
 	})
-}
+} */
 
 export default picturesSizes

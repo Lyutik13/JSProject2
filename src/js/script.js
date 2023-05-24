@@ -11,6 +11,7 @@ import filter from './modules/filter'
 import picturesSizes from './modules/picturesSizes'
 import accordion from './modules/accordion'
 import burger from './modules/burger'
+import scroll from './modules/scroll'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -35,6 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
   accordion('.accordion-heading', '.accordion-block')
 
   burger('.burger-menu', '.burger')
+
+  scroll('.pageup')
 })
 
 
