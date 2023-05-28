@@ -1,6 +1,6 @@
 function scroll(elemSelector) {
-  const elem = document.querySelector(elemSelector)
 	const smoothLinks = document.querySelectorAll('a[href^="#"]')
+  const elem = document.querySelector(elemSelector)
 
 	for (let smoothLink of smoothLinks) {
 		smoothLink.addEventListener('click', function (e) {

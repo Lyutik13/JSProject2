@@ -144,6 +144,91 @@ var checkTextInputs = function checkTextInputs(selector) {
 
 /***/ }),
 
+/***/ "./src/js/modules/drop.js":
+/*!********************************!*\
+  !*** ./src/js/modules/drop.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var drop = function drop() {
+  // drag *
+  // dragend *
+  // dragenter - объект над dropArea
+  // dragexit *
+  // dragleave - объект за пределами dropArea
+  // dragover - объект зависает над dropArea
+  // dragstart *
+  // drop - объект отправлен в dropArea
+
+  var fileInputs = document.querySelectorAll('[name="upload"]');
+  ['dragenter', 'dragleave', 'dragover', 'drop'].forEach(function (eventName) {
+    fileInputs.forEach(function (input) {
+      input.addEventListener(eventName, preventDefaults, false);
+    });
+  });
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  function highlight(item) {
+    item.closest('.file_upload').style.border = '5px solid yellow';
+    item.closest('.file_upload').style.backgroundColor = 'rgba(0,0,0, .7)';
+  }
+  function unhighlight(item) {
+    item.closest('.file_upload').style.border = 'none';
+    if (item.closest('.calc_form')) {
+      item.closest('.file_upload').style.backgroundColor = '#fff';
+    } else {
+      item.closest('.file_upload').style.backgroundColor = '#ededed';
+    }
+  }
+  ;
+  ['dragenter', 'dragover'].forEach(function (eventName) {
+    fileInputs.forEach(function (input) {
+      input.addEventListener(eventName, function () {
+        return highlight(input);
+      }, false);
+    });
+  });
+  ['dragleave', 'drop'].forEach(function (eventName) {
+    fileInputs.forEach(function (input) {
+      input.addEventListener(eventName, function () {
+        return unhighlight(input);
+      }, false);
+    });
+  });
+  fileInputs.forEach(function (input) {
+    input.addEventListener('drop', function (e) {
+      input.files = e.dataTransfer.files;
+      var dots;
+      var arr = input.files[0].name.split('.');
+      arr[0].length > 6 ? dots = '...' : dots = '.';
+      var name = arr[0].substring(0, 6) + dots + arr[1];
+      input.previousElementSibling.textContent = name;
+    });
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (drop);
+
+/***/ }),
+
 /***/ "./src/js/modules/filter.js":
 /*!**********************************!*\
   !*** ./src/js/modules/filter.js ***!
@@ -799,8 +884,8 @@ function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function scroll(elemSelector) {
-  var elem = document.querySelector(elemSelector);
   var smoothLinks = document.querySelectorAll('a[href^="#"]');
+  var elem = document.querySelector(elemSelector);
   var _iterator = _createForOfIteratorHelper(smoothLinks),
     _step;
   try {
@@ -7571,6 +7656,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 /* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/scroll */ "./src/js/modules/scroll.js");
+/* harmony import */ var _modules_drop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/drop */ "./src/js/modules/drop.js");
+
 
 
 
@@ -7601,6 +7688,7 @@ window.addEventListener('DOMContentLoaded', function () {
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.accordion-heading', '.accordion-block');
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger-menu', '.burger');
   (0,_modules_scroll__WEBPACK_IMPORTED_MODULE_11__["default"])('.pageup');
+  (0,_modules_drop__WEBPACK_IMPORTED_MODULE_12__["default"])();
 });
 
 // json-server src/db.json

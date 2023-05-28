@@ -12,6 +12,7 @@ import picturesSizes from './modules/picturesSizes'
 import accordion from './modules/accordion'
 import burger from './modules/burger'
 import scroll from './modules/scroll'
+import drop from './modules/drop'
 
 window.addEventListener('DOMContentLoaded', () => {
 	modals()
@@ -38,6 +39,8 @@ window.addEventListener('DOMContentLoaded', () => {
   burger('.burger-menu', '.burger')
 
   scroll('.pageup')
+
+  drop()
 })
 
 

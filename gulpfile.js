@@ -42,10 +42,17 @@ function html() {
 }
 
 function bilds() {
-	return src(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php', './src/db.json'], {
+	return src(['./src/img/**/*.*', './src/fonts/**/*.*'], {
 		base: 'src',
 	}).pipe(dest(dist))
 	// .pipe(browserSync.stream());
+}
+
+function bildsTwo() {
+	return src(['./src/server.php', './src/question.php', './src/db.json'], {
+		base: 'src',
+	}).pipe(dest(dist))
+	.pipe(browserSync.stream());
 }
 
 function watching() {
@@ -60,8 +67,8 @@ function watching() {
 	watch(['./src/*.html'], html).on('change', browserSync.reload)
 	watch(['./src/sass/**/*.scss'], styles)
 	watch(['./src/js/**/*.js'], scripts)
-	watch(['./src/img/**/*.*', './src/server.php', './src/fonts/**/*.*', './src/question.php', './src/db.json'], bilds)
+	watch(['./src/img/**/*.*', './src/fonts/**/*.*'], bilds)
+	watch(['./src/server.php', './src/question.php', './src/db.json'], bildsTwo)
 }
 
-exports.bilds = bilds
-exports.default = parallel(watching, html, styles, scripts, bilds)
+exports.default = parallel(watching, html, styles, scripts, bilds, bildsTwo)
